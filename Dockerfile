@@ -6,6 +6,12 @@ RUN apt-get update -y && \
 	apt-get clean && \
 	rm -rf \var\lib\lists\*
 
-EXPOSE 8080:80
+RUN a2enmod rewrite
+
+RUN /usr/sbin/a2ensite default-ssl
+RUN /usr/sbin/a2enmod ssl
+
+EXPOSE 80
+EXPOSE 443
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
